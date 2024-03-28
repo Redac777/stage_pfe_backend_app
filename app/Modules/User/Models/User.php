@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Users\Models;
+namespace App\Modules\User\Models;
 
 use App\Modules\ProfileGroup\Models\ProfileGroup;
 use App\Modules\Role\Models\Role;
@@ -8,8 +8,7 @@ use App\Modules\Shift\Models\Shift;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Users extends Model
+class User extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -30,6 +29,4 @@ class Users extends Model
     public function role(){
         return $this->belongsTo(Role::class);
     }
-    
-    
 }

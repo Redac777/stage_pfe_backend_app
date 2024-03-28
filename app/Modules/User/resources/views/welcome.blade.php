@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Users</title>
+        <title>User</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -47,13 +47,13 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">
-                    Users
+                    User
                 </div>
                 <div class="subtitle">
-                    @if (Lang::has('Users::example.welcome'))
-                        {{ trans('Users::example.welcome') }}
+                    @if (Lang::has('User::example.welcome'))
+                        {{ trans('User::example.welcome') }}
                     @else
-                        Welcome, this is Users module.
+                        Welcome, this is User module.
                     @endif
                 </div>
             </div>

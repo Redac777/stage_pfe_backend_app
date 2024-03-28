@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Users\Http\Controllers;
+namespace App\Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UsersController
+class UserController
 {
 
     /**
@@ -14,6 +14,6 @@ class UsersController
      */
     public function welcome()
     {
-        return view("Users::welcome");
+        return view("User::welcome");
     }
 }

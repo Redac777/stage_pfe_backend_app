@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('equipements', function (Blueprint $table) {
             $table->id();
+            $table->string('matricule');
+            $table->boolean('status');
+            $table->foreignId('profile_group_id')->constrained('profilegroups')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -20,13 +20,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('shift_id');
-            $table->unsignedBigInteger('profile_group_id');
-            $table->unsignedBigInteger('role_id');
-            $table->foreign('shift_id')->references('id')->on('shifts')->onDelete('cascade');
-            $table->foreign('profile_group_id')->references('id')->on('profilegroups')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->rememberToken();
+            $table->foreignId('shift_id')->constrained('shifts')->onDelete('cascade');
+            $table->foreignId('profile_group_id')->constrained('profilegroups')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }
