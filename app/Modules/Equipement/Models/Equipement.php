@@ -12,7 +12,7 @@ class Equipement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['matricule','status'];
+    protected $fillable = ['matricule','status','profile_group_id'];
 
     public function profilegroup(){
         return $this->belongsTo(ProfileGroup::class);
