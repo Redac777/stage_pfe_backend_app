@@ -2,6 +2,8 @@
 
 namespace App\Modules\User\Models;
 
+use App\Modules\Box\Models\Box;
+use App\Modules\Planning\Models\Planning;
 use App\Modules\ProfileGroup\Models\ProfileGroup;
 use App\Modules\Role\Models\Role;
 use App\Modules\Shift\Models\Shift;
@@ -28,5 +30,12 @@ class User extends Model
     }
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function boxes(){
+        return $this->hasMany(Box::class);
+    }
+    public function plannings(){
+        return $this->hasMany(Planning::class);
     }
 }
