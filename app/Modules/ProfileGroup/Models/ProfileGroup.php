@@ -12,6 +12,7 @@ class ProfileGroup extends Model
     use HasFactory;
 
     protected $fillable = ['type'];
+    protected $table = 'profilegroups';
 
     public function users(){
         return $this->hasMany(User::class);

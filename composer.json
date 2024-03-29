@@ -8,6 +8,7 @@
         "php": "^8.2",
         "artem-schander/l5-modular": "^2.1",
         "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
@@ -24,7 +25,9 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "App\\Modules\\": "app/Modules/"
+            "App\\Modules\\": "app/Modules/",
+            "Illuminate\\Support\\Facades\\" : "vendor/laravel/framework/src/Illuminate/Support/Facades/"
+
         }
     },
     "autoload-dev": {

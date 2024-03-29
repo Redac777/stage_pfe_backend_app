@@ -1,4 +1,27 @@
 <?php
 
+use App\Modules\User\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
+Route::group([
+    'prefix' => 'api/users',
+    'middleware' => ['auth:sanctum'],
+], function ($router) {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::post('/delete', [UserController::class,'delete']);
+    Route::put('/updatepass', [UserController::class,'updatePassword']);
+    Route::post('/register', [UserController::class,'register']);
+    Route::put('/resetpass', [UserController::class,'resetPassword']);
+    Route::put('/update', [UserController::class,'update']);
+});
+Route::group([
+    'prefix' => 'api/users',
+    // 'middleware' => ['cors'],
+], function ($router) {
+    Route::post('/login', [UserController::class,'login']);
+   
+    
+});

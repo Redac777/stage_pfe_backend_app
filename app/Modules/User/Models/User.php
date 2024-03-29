@@ -8,11 +8,13 @@ use App\Modules\ProfileGroup\Models\ProfileGroup;
 use App\Modules\Role\Models\Role;
 use App\Modules\Shift\Models\Shift;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
         'matricule',
         'firstname',
@@ -20,6 +22,9 @@ class User extends Model
         'isactive',
         'email',
         'password',
+        'shift_id',
+        'role_id',
+        'profile_group_id',
     ];
     
     public function shift(){

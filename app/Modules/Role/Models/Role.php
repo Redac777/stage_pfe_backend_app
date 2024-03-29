@@ -11,7 +11,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','sub_category'];
+    protected $fillable = ['name','sub_category','department_id'];
 
     public function department(){
         return $this->belongsTo(Department::class);
