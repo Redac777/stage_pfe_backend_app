@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('equipement_id')->constrained('equipements')->onDelete('cascade');
+            $table->unsignedBigInteger('equipement_id')->nullable();
+            $table->foreign('equipement_id')->references('id')->on('equipements')->onDelete('cascade');
             $table->foreignId('planning_id')->constrained('plannings')->onDelete('cascade');
             $table->float('start_time');
             $table->float('ends_time');
-            $table->boolean('break');
+            $table->boolean('role')->nullable();
+            $table->boolean('break')->nullable();
             $table->timestamps();
         });
     }

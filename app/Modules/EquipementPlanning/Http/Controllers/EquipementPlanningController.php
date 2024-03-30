@@ -2,7 +2,10 @@
 
 namespace App\Modules\EquipementPlanning\Http\Controllers;
 
+use App\Modules\EquipementPlanning\Models\EquipementPlanning;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EquipementPlanningController
 {
@@ -12,8 +15,78 @@ class EquipementPlanningController
      *
      * @return \Illuminate\Http\Response
      */
-    public function welcome()
+    public function add(Request $request)
     {
-        return view("EquipementPlanning::welcome");
+        $rules = [
+            'equipement_id' => 'required',
+            'planning_id' => 'required',
+            'stopped_at' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'reason' => 'nullable|string',
+        ];
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+        try {
+            // Create a new equipementplanning record
+            $equipementplanning = EquipementPlanning::create(
+                [
+                    'equipement_id' => $request->equipement_id,
+                    'planning_id' => $request->planning_id,
+                    'stopped_at' => $request->stopped_at,
+                    'reason' => $request->reason
+                ]
+                );
+            
+
+            return [
+                "payload" => $equipementplanning,
+                "message" => "EquipementPlanning created successfully",
+                "status" => 201
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'error' => $e->getMessage(),
+                'status' => 500
+            ];
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $equipementplanning = EquipementPlanning::findOrFail($id);
+            $rules = [
+                'stopped_at' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+                'reason' => 'nullable|string',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return [
+                    "error" => $validator->errors()->first(), // Get the first validation error message
+                    "status" => 422
+                ];
+            }
+            $equipementplanning->update($request->all());
+            return [
+                "payload" => $equipementplanning,
+                "status" => 200
+            ];
+        } catch (ModelNotFoundException $e) {
+            return [
+                "error" => "EquipementPlanning not found",
+                "status" => 404
+            ];
+        }
+        
     }
 }

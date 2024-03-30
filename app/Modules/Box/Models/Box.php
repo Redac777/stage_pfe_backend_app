@@ -12,7 +12,7 @@ class Box extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['start_time','ends_time','break','role'];
+    protected $fillable = ['start_time','ends_time','break','role','user_id','planning_id','equipement_id'];
 
     public function user(){
         return $this->belongsTo(User::class);

@@ -13,6 +13,8 @@ class Planning extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['shift_id'];
+
     public function users(){
         return $this->hasMany(User::class);
     }
