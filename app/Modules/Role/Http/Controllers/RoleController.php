@@ -38,7 +38,7 @@ class RoleController
         $rules = [
             'name' => 'required|string',
             'department_id' => 'required',
-            'sub_category' => 'string',
+            'sub_category' => 'nullable|string',
         ];
 
         // Validate the request data
