@@ -99,7 +99,7 @@ class UserController extends Controller
             'lastname'=>'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
             'shift_id' => 'required',
-            'profile_group_id' => 'required',
+            'profile_group_id' => 'nullable',
             'role_id' => 'required',
         ];
 
