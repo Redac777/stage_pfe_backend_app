@@ -2,6 +2,7 @@
 
 namespace App\Modules\EquipementPlanning\Models;
 
+use App\Modules\EquipementPlanningWorkingHours\Models\EquipementPlanningWorkingHours;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,8 @@ class EquipementPlanning extends Model
     ];
 
     protected $table = 'equipements_plannings';
+
+    public function equipementPlanningWorkingHours(){
+        return $this->hasMany(EquipementPlanningWorkingHours::class);
+    }
 }
