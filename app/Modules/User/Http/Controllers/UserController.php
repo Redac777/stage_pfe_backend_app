@@ -3,7 +3,10 @@
 namespace App\Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\ProfileGroup\Models\ProfileGroup;
+use App\Modules\Role\Models\Role;
 use App\Modules\User\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::all();
+            $users = User::with(['shift', 'profileGroup', 'role'])->get();
             return [
                 "payload" => $users,
                 "status" => 200
@@ -98,7 +101,11 @@ class UserController extends Controller
             'firstname'=>'required|string|max:255',
             'lastname'=>'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'shift_id' => 'required',
+<<<<<<< HEAD
+            'shift_id' => 'nullable',
+=======
+            'shift_id' => 'nullable',
+>>>>>>> dev
             'profile_group_id' => 'nullable',
             'role_id' => 'required',
         ];
@@ -315,4 +322,52 @@ class UserController extends Controller
         }
         
     }
+
+
+    public function getDrivers(Request $request)
+    {
+        try {
+            $currentTime = Carbon::now();
+            $shift = null;
+            $profileGroupName = $request->input('profile_group');
+            $roleName = $request->input('role');
+    
+            // Determine the shift category based on the current time
+            if ($currentTime->between('07:00', '14:45')) {
+                $shift = 'A';
+            } elseif ($currentTime->between('15:00', '22:45')) {
+                $shift = 'B';
+            } elseif ($currentTime->between('23:00', '06:45')) {
+                $shift = 'C';
+            }
+    
+            // If shift category is determined, fetch profile group ID and role ID
+            if ($shift && $profileGroupName && $roleName) {
+                $profileGroupId = ProfileGroup::where('type', $profileGroupName)->value('id');
+                $roleId = Role::where('name', $roleName)->value('id');
+    
+                // Retrieve users for the specified shift, profile group, and role
+                $users = User::whereHas('shift', function ($query) use ($shift) {
+                    $query->where('category', $shift);
+                })->where('profile_group_id', $profileGroupId)
+                  ->where('role_id', $roleId)
+                  ->get();
+                
+                return [
+                    "payload" => $users,
+                    "status" => 200
+                ];
+            } else {
+                return [
+                    "error" => "Shift category, profile group, or role could not be determined.",
+                    "status" => 404
+                ];
+            }
+        } catch (ModelNotFoundException $e) {
+            return [
+                "error" => "Shift category, profile group, or role could not be determined.",
+                "status" => 404
+            ];
+        }
+}
 }

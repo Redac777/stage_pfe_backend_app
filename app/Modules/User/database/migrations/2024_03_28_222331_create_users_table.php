@@ -20,7 +20,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< HEAD
             $table->foreignId('shift_id')->constrained('shifts')->onDelete('cascade');
+=======
+            $table->unsignedBigInteger('shift_id')->nullable();
+            $table->foreign('shift_id')->references('id')->on('shifts')->onDelete('cascade');
+>>>>>>> dev
             $table->unsignedBigInteger('profile_group_id')->nullable();
             $table->foreign('profile_group_id')->references('id')->on('profilegroups')->onDelete('cascade');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
