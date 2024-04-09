@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('profile_group_id')->nullable();
             $table->foreign('profile_group_id')->references('id')->on('profilegroups')->onDelete('cascade');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->integer('workingHours');
             $table->timestamps();
         });
     }

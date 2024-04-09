@@ -13,7 +13,7 @@ Route::group([
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('/delete', [UserController::class,'delete']);
     Route::put('/updatepass', [UserController::class,'updatePassword']);
-    Route::post('/register', [UserController::class,'register']);
+    // Route::post('/register', [UserController::class,'register']);
     Route::put('/resetpass', [UserController::class,'resetPassword']);
     Route::put('/update', [UserController::class,'update']);
     Route::post('/drivers' , [UserController::class,'getDrivers']);
@@ -22,6 +22,7 @@ Route::group([
     'prefix' => 'api/users',
     // 'middleware' => ['cors'],
 ], function ($router) {
+    Route::post('/register', [UserController::class,'register']);
     Route::post('/login', [UserController::class,'login']);
    
     

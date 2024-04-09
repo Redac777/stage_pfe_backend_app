@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'shift_id',
         'role_id',
+        'workingHours',
         'profile_group_id',
     ];
     

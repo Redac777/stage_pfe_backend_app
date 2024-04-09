@@ -18,7 +18,7 @@ class EquipementController
     public function index()
     {
         try {
-            $equipements = Equipement::all();
+            $equipements = Equipement::with('profileGroup')->get();
             return [
                 "payload" => $equipements,
                 "status" => 200

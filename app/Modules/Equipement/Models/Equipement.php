@@ -14,7 +14,7 @@ class Equipement extends Model
 
     protected $fillable = ['matricule','status','profile_group_id'];
 
-    public function profilegroup(){
+    public function profileGroup(){
         return $this->belongsTo(ProfileGroup::class);
     }
 
