@@ -104,6 +104,7 @@ class UserController extends Controller
             'shift_id' => 'nullable',
             'profile_group_id' => 'nullable',
             'role_id' => 'required',
+            'workingHours'=>'nullable|numeric'
         ];
 
         // Validate the request data
@@ -127,6 +128,7 @@ class UserController extends Controller
                 'shift_id' => $request->shift_id,
                 'profile_group_id' => $request->profile_group_id,
                 'role_id' => $request->role_id,
+                'workingHours' => $request->workingHours,
                 'password' => Hash::make("123456")
             ]);
 
@@ -297,6 +299,7 @@ class UserController extends Controller
                     'max:255',
                     Rule::unique('users', 'email')->ignore($user->id), // Ignore the unique rule for the current user's email
                 ],
+                'workingHours' => 'integer',
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
