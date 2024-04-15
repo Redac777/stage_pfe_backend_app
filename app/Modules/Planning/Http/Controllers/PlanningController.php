@@ -37,8 +37,6 @@ class PlanningController
                     'shift_id'=>$request->shift_id
                 ]
                 );
-            
-
             return [
                 "payload" => $planning,
                 "message" => "Planning created successfully",
