@@ -4,6 +4,7 @@ namespace App\Modules\Planning\Models;
 
 use App\Modules\Box\Models\Box;
 use App\Modules\Equipement\Models\Equipement;
+use App\Modules\ProfileGroup\Models\ProfileGroup;
 use App\Modules\Shift\Models\Shift;
 use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ class Planning extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['shift_id'];
+    protected $fillable = ['shift_id','profile_group_id'];
 
     public function users(){
         return $this->hasMany(User::class);
@@ -27,5 +28,8 @@ class Planning extends Model
     }
     public function shift(){
         return $this->belongsTo(Shift::class);
+    }
+    public function profileGroup(){
+        return $this->belongsTo(ProfileGroup::class);
     }
 }

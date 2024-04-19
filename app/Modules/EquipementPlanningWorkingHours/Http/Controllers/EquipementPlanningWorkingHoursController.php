@@ -18,8 +18,8 @@ class EquipementPlanningWorkingHoursController
     {
         $rules = [
             'equipement_planning_id' => 'required',
-            'start_time' => 'required |numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'end_time' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'start_time' => 'required | string',
+            'end_time' => 'required | string',
         ];
 
         // Validate the request data

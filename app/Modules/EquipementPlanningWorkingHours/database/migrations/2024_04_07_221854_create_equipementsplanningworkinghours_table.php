@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('equipementsplanningworkinghours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('equipement_planning_id')->constrained('equipements_plannings')->onDelete('cascade');
-            $table->float('start_time');
-            $table->float('end_time');
+            $table->string('start_time');
+            $table->string('end_time');
             $table->timestamps();   
         });
     }

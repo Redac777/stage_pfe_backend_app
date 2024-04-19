@@ -18,6 +18,7 @@ class PlanningController
     {
         $rules = [
             'shift_id' => 'required',
+            'profile_group_id' => 'required',
         ];
 
         // Validate the request data
@@ -34,7 +35,8 @@ class PlanningController
             // Create a new planning record
             $planning = Planning::create(
                 [
-                    'shift_id'=>$request->shift_id
+                    'shift_id'=>$request->shift_id,
+                    'profile_group_id'=>$request->profile_group_id
                 ]
                 );
             return [

@@ -17,8 +17,8 @@ class BoxController
     public function add(Request $request)
     {
         $rules = [
-            'start_time' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'ends_time' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'start_time' => 'required|string ',
+            'ends_time' => 'required|string ',
             'break' => 'nullable|boolean',
             'role' => 'nullable|string',
             'user_id' => 'required',

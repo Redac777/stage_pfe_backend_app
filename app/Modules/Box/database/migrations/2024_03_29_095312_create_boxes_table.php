@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('equipement_id')->nullable();
             $table->foreign('equipement_id')->references('id')->on('equipements')->onDelete('cascade');
             $table->foreignId('planning_id')->constrained('plannings')->onDelete('cascade');
-            $table->float('start_time');
-            $table->float('ends_time');
+            $table->string('start_time');
+            $table->string('ends_time');
             $table->boolean('role')->nullable();
             $table->boolean('break')->nullable();
             $table->timestamps();

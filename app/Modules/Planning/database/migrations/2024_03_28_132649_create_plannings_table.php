@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('plannings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shift_id')->constrained('shifts')->onDelete('cascade');
+            $table->foreignId('profile_group_id')->constrained('profilegroups')->onDelete('cascade');
             $table->timestamps();
         });
     }
