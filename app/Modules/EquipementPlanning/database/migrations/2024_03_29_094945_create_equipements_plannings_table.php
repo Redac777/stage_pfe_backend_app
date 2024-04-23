@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('equipement_id')->constrained('equipements')->onDelete('cascade');
             $table->foreignId('planning_id')->constrained('plannings')->onDelete('cascade');
             $table->float('stopped_at')->nullable();
-            $table->string('reason')->nullable();;
+            $table->string('reason')->nullable();
+            $table->string('subcontract')->nullable();
             $table->timestamps();
         });
     }

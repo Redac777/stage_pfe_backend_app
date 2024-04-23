@@ -19,6 +19,9 @@ class PlanningController
         $rules = [
             'shift_id' => 'required',
             'profile_group_id' => 'required',
+            'checker_number' => 'required|numeric',
+            'deckman_number' => 'required|numeric',
+            'assistant' => 'required|boolean'
         ];
 
         // Validate the request data
@@ -36,7 +39,10 @@ class PlanningController
             $planning = Planning::create(
                 [
                     'shift_id'=>$request->shift_id,
-                    'profile_group_id'=>$request->profile_group_id
+                    'profile_group_id'=>$request->profile_group_id,
+                    'checker_number'=>$request->checker_number,
+                    'deckman_number'=>$request->deckman_number,
+                    'assistant'=>$request->assistant
                 ]
                 );
             return [

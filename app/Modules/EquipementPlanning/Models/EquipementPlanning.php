@@ -14,7 +14,8 @@ class EquipementPlanning extends Model
         'equipement_id',
         'planning_id',
         'stopped_at',
-        'reason'
+        'reason',
+        'subcontract'
     ];
 
     protected $table = 'equipements_plannings';

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('shift_id')->constrained('shifts')->onDelete('cascade');
             $table->foreignId('profile_group_id')->constrained('profilegroups')->onDelete('cascade');
+            $table->integer('checker_number');
+            $table->integer('deckman_number');
+            $table->boolean('assistant'); 
             $table->timestamps();
         });
     }

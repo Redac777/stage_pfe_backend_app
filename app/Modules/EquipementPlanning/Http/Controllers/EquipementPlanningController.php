@@ -22,6 +22,7 @@ class EquipementPlanningController
             'planning_id' => 'required',
             'stopped_at' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'reason' => 'nullable|string',
+            'subcontract ' => 'nullable|string'
         ];
 
         // Validate the request data
@@ -41,7 +42,8 @@ class EquipementPlanningController
                     'equipement_id' => $request->equipement_id,
                     'planning_id' => $request->planning_id,
                     'stopped_at' => $request->stopped_at,
-                    'reason' => $request->reason
+                    'reason' => $request->reason,
+                    'subcontract' => $request->subcontract
                 ]
                 );
             
@@ -68,6 +70,7 @@ class EquipementPlanningController
             $rules = [
                 'stopped_at' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
                 'reason' => 'nullable|string',
+                'subcontract ' => 'nullable|string'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
