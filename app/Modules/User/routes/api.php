@@ -17,6 +17,7 @@ Route::group([
     Route::put('/resetpass', [UserController::class,'resetPassword']);
     Route::put('/update', [UserController::class,'update']);
     Route::post('/drivers' , [UserController::class,'getDrivers']);
+    Route::post('/getById', [UserController::class,'getById']);
 });
 Route::group([
     'prefix' => 'api/users',

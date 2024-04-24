@@ -38,6 +38,28 @@ class UserController extends Controller
         }
     }
 
+    public function getById(Request $request){
+        $id = $request->input('user_id');
+        try {
+            $user = User::with(['shift', 'profileGroup', 'role'])->findOrFail($id);
+            return [
+                "payload" => $user,
+                "status" => 200
+            ];
+        } catch (ModelNotFoundException $e) {
+            return [
+                "error" => "User not found",
+                "status" => 404
+            ];
+        } catch (\Exception $e) {
+            return [
+                "error" => "Internal Server Error",
+                "status" => 500
+            ];
+        }
+
+    }
+
     public function login(Request $request)
     {
         // Define validation rules

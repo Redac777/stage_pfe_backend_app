@@ -92,4 +92,40 @@ class EquipementPlanningController
         }
         
     }
+
+    public function getByPlanning(Request $request)
+    {
+        $rules = [
+            'planning_id' => 'required',
+        ];
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+
+        try {
+            // Convert the input date to a format suitable for querying
+
+            // Retrieve planning records created on the specified date
+            $userPlannings = EquipementPlanning::where('planning_id', $request->planning_id)->get();
+
+            return [
+                "payload" => $userPlannings,
+                "message" => "Equipements retrieved successfully",
+                "status" => 200
+            ];
+        } catch (\Exception $e) {
+            return [
+                'error' => $e->getMessage(),
+                'status' => 500
+            ];
+        }
+    }
 }

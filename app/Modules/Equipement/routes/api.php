@@ -13,4 +13,5 @@ Route::group([
     Route::post('/add', [EquipementController::class,'add']);
     Route::post('/delete', [EquipementController::class,'delete']);
     Route::put('/update', [EquipementController::class,'update']);
+    Route::post('/getById', [EquipementController::class,'getById']);
 });

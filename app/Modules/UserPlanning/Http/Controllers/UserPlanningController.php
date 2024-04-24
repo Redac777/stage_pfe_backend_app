@@ -2,6 +2,7 @@
 
 namespace App\Modules\UserPlanning\Http\Controllers;
 
+use App\Modules\User\Models\User;
 use App\Modules\UserPlanning\Models\UserPlanning;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -43,15 +44,14 @@ class UserPlanningController
                     'departure_at' => $request->departure_at,
                     'reason' => $request->reason
                 ]
-                );
-            
+            );
+
 
             return [
                 "payload" => $userplanning,
                 "message" => "UserPlanning created successfully",
                 "status" => 201
             ];
-
         } catch (\Exception $e) {
             return [
                 'error' => $e->getMessage(),
@@ -87,6 +87,41 @@ class UserPlanningController
                 "status" => 404
             ];
         }
-        
+    }
+
+    public function getByPlanning(Request $request)
+    {
+        $rules = [
+            'planning_id' => 'required',
+        ];
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+
+        try {
+            // Convert the input date to a format suitable for querying
+
+            // Retrieve planning records created on the specified date
+            $userPlannings = UserPlanning::where('planning_id', $request->planning_id)->get();
+
+            return [
+                "payload" => $userPlannings,
+                "message" => "Users retrieved successfully",
+                "status" => 200
+            ];
+        } catch (\Exception $e) {
+            return [
+                'error' => $e->getMessage(),
+                'status' => 500
+            ];
+        }
     }
 }

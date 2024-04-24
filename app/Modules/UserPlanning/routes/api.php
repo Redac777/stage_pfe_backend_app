@@ -11,4 +11,5 @@ Route::group([
 ], function ($router) {
     Route::post('/add', [UserPlanningController::class,'add']);
     Route::put('/update', [UserPlanningController::class,'update']);
+    Route::post('/getByPlanning', [UserPlanningController::class,'getByPlanning']);
 });

@@ -10,4 +10,5 @@ Route::group([
     'middleware' => ['auth:sanctum'],
 ], function ($router) {
     Route::post('/add', [PlanningController::class,'add']);
+    Route::post('/getByDate', [PlanningController::class,'getByDate']);
 });

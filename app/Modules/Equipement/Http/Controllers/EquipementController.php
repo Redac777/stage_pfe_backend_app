@@ -124,6 +124,27 @@ class EquipementController
                 "status" => 404
             ];
         }
-        
+    }
+
+    public function getById(Request $request)
+    {
+        $id = $request->input('equipement_id');
+        try {
+            $equipement = Equipement::with('profileGroup')->findOrFail($id);
+            return [
+                "payload" => $equipement,
+                "status" => 200
+            ];
+        } catch (ModelNotFoundException $e) {
+            return [
+                "error" => "Equipement not found",
+                "status" => 404
+            ];
+        } catch (\Exception $e) {
+            return [
+                "error" => "Internal Server Error",
+                "status" => 500
+            ];
+        }
     }
 }
