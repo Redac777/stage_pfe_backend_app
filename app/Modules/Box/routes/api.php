@@ -10,4 +10,5 @@ Route::group([
     'middleware' => ['auth:sanctum'],
 ], function ($router) {
     Route::post('/add', [BoxController::class,'add']);
+    Route::post('/getByPlanning', [BoxController::class,'getBoxesByPlanningId']);
 });

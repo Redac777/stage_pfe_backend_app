@@ -64,4 +64,23 @@ class BoxController
             ];
         }
     }
+
+    public function getBoxesByPlanningId(Request $request)
+{
+    try{
+        $boxes = Box::with(['user', 'equipement'])->where('planning_id', $request->planning_id)->get();
+
+        return [
+            "payload" => $boxes,
+            "status" => 200
+        ];
+    }
+    catch(\Exception $e){
+        return [
+            "error" => $e->getMessage(),
+            "status" => 500
+        ];
+    }
+    
+}
 }

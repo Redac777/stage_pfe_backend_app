@@ -358,7 +358,7 @@ class UserController extends Controller
                 $shift = 'A';
             } elseif ($currentTime->between('15:00', '22:45')) {
                 $shift = 'B';
-            } elseif ($currentTime->between('23:00', '06:45')) {
+            } elseif ($currentTime->between('23:00', '23:59') || $currentTime->between('00:00', '06:45')) {
                 $shift = 'C';
             }
     
