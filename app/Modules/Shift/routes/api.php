@@ -12,4 +12,5 @@ Route::group([
     Route::post('/add', [ShiftController::class,'add']);
     Route::post('/delete', [ShiftController::class,'delete']);
     Route::put('/update', [ShiftController::class,'update']);
+    Route::post('/getByCategory', [ShiftController::class,'getByCategory']);
 });

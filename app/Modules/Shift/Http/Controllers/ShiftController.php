@@ -123,4 +123,49 @@ class ShiftController
         }
         
     }
+
+    public function getByCategory(Request $request)
+{
+    // Define validation rules for category parameter
+    $rules = [
+        'category' => 'required|string',
+    ];
+
+    // Validate the request data
+    $validator = Validator::make($request->all(), $rules);
+
+    // If validation fails, return error response
+    if ($validator->fails()) {
+        return [
+            "error" => $validator->errors()->first(),
+            "status" => 422
+        ];
+    }
+
+    try {
+        // Retrieve shifts by category
+        $category = $request->input('category');
+        $shifts = Shift::where('category', $category)->get();
+
+        // Check if any shifts were found
+        if ($shifts->isEmpty()) {
+            return [
+                "error" => "No shifts found for the specified category",
+                "status" => 404
+            ];
+        }
+
+        // Return shifts in response
+        return [
+            "payload" => $shifts,
+            "status" => 200
+        ];
+    } catch (\Exception $e) {
+        return [
+            "error" => "Internal Server Error",
+            "status" => 500
+        ];
+    }
+}
+
 }
