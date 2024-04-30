@@ -13,4 +13,5 @@ Route::group([
     Route::post('/delete', [ShiftController::class,'delete']);
     Route::put('/update', [ShiftController::class,'update']);
     Route::post('/getByCategory', [ShiftController::class,'getByCategory']);
-});
+    Route::get('/getShiftByTime', [ShiftController::class,'getShiftByTime']);
+}); 

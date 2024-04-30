@@ -21,7 +21,8 @@ class PlanningController
             'profile_group_id' => 'required',
             'checker_number' => 'nullable|numeric',
             'deckman_number' => 'nullable|numeric',
-            'assistant' => 'nullable|boolean'
+            'assistant' => 'nullable|boolean',
+            'planned_at' => 'nullable'
         ];
 
         // Validate the request data
@@ -42,7 +43,8 @@ class PlanningController
                     'profile_group_id' => $request->profile_group_id,
                     'checker_number' => $request->checker_number,
                     'deckman_number' => $request->deckman_number,
-                    'assistant' => $request->assistant
+                    'assistant' => $request->assistant,
+                    'planned_at' => $request->planned_at ?? now()
                 ]
             );
             return [
@@ -82,12 +84,12 @@ class PlanningController
             $date = date('Y-m-d', strtotime($request->date));
 
             // Retrieve planning records created on the specified date
-            $planningRecords = Planning::whereDate('created_at', $date)->where('shift_id', $request->shift_id)
-                ->where('profile_group_id', $request->profile_group_id)->get();
+            $planningRecord = Planning::whereDate('planned_at', $date)->where('shift_id', $request->shift_id)
+                ->where('profile_group_id', $request->profile_group_id)->first();
 
             return [
-                "payload" => $planningRecords,
-                "message" => "Planning records retrieved successfully",
+                "payload" => $planningRecord,
+                "message" => "Planning record retrieved successfully",
                 "status" => 200
             ];
         } catch (\Exception $e) {

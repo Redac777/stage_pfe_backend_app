@@ -12,4 +12,5 @@ Route::group([
     Route::post('/add', [ProfileGroupController::class,'add']);
     Route::post('/delete', [ProfileGroupController::class,'delete']);
     Route::put('/update', [ProfileGroupController::class,'update']);
+    Route::post('/getByType', [ProfileGroupController::class,'getByType']);
 });

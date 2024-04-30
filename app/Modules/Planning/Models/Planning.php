@@ -14,7 +14,7 @@ class Planning extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['shift_id','profile_group_id','checker_number','deckman_number','assistant'];
+    protected $fillable = ['shift_id','profile_group_id','checker_number','deckman_number','assistant','planned_at'];
 
     public function users(){
         return $this->hasMany(User::class);

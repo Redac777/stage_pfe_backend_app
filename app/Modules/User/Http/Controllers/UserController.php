@@ -5,6 +5,7 @@ namespace App\Modules\User\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\ProfileGroup\Models\ProfileGroup;
 use App\Modules\Role\Models\Role;
+use App\Modules\Shift\Models\Shift;
 use App\Modules\User\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -347,21 +348,32 @@ class UserController extends Controller
 
     public function getDrivers(Request $request)
     {
+        $shift = null;
+        $shiftTwo = null;
+        $profileGroupName = null;
+        $roleName = null;
+        $requestInputId = $request->input('shift_id');
+        $got = "A";
         try {
-            $currentTime = Carbon::now();
-            $shift = null;
+            if($request->has('shift_id')){
+                $shiftTwo = Shift::findOrFail($request->input('shift_id'));
+                $shift=$shiftTwo->category; 
+            }
+            else{
+                $currentTime = Carbon::now();
+                // Determine the shift category based on the current time
+                if ($currentTime->between('07:00', '14:59')) {
+                    $shift = 'A';
+                } elseif ($currentTime->between('15:00', '22:59')) {
+                    $shift = 'B';
+                } elseif ($currentTime->between('23:00', '23:59') || $currentTime->between('00:00', '06:59')) {
+                    $shift = 'C';
+                }
+        
+            }
             $profileGroupName = $request->input('profile_group');
             $roleName = $request->input('role');
-    
-            // Determine the shift category based on the current time
-            if ($currentTime->between('07:00', '14:45')) {
-                $shift = 'A';
-            } elseif ($currentTime->between('15:00', '22:45')) {
-                $shift = 'B';
-            } elseif ($currentTime->between('23:00', '23:59') || $currentTime->between('00:00', '06:45')) {
-                $shift = 'C';
-            }
-    
+            
             // If shift category is determined, fetch profile group ID and role ID
             if ($shift && $profileGroupName && $roleName) {
                 $profileGroupId = ProfileGroup::where('type', $profileGroupName)->value('id');
@@ -376,6 +388,8 @@ class UserController extends Controller
                 
                 return [
                     "payload" => $users,
+                    "addedValue" => $shiftTwo,
+                    "shift" => $shift,
                     "status" => 200
                 ];
             } else {

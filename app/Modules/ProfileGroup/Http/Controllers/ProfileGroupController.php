@@ -123,4 +123,48 @@ class ProfileGroupController
         }
         
     }
+
+    public function getByType(Request $request)
+    {
+        // Define validation rules for type parameter
+        $rules = [
+            'type' => 'required|string',
+        ];
+    
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+    
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+    
+        try {
+            // Retrieve profilegroups by type
+            $type = $request->input('type');
+            $profilegroups = ProfileGroup::where('type', $type)->get();
+    
+            // Check if any profilegroups were found
+            if ($profilegroups->isEmpty()) {
+                return [
+                    "error" => "No profilegroups found for the specified type",
+                    "status" => 404
+                ];
+            }
+    
+            // Return profilegroups in response
+            return [
+                "payload" => $profilegroups,
+                "status" => 200
+            ];
+        } catch (\Exception $e) {
+            return [
+                "error" => "Internal Server Error",
+                "status" => 500
+            ];
+        }
+    }
 }

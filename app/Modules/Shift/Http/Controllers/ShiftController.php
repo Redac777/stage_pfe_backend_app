@@ -3,6 +3,7 @@
 namespace App\Modules\Shift\Http\Controllers;
 
 use App\Modules\Shift\Models\Shift;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -167,5 +168,41 @@ class ShiftController
         ];
     }
 }
+
+    public function getShiftByTime(){
+        $currentTime = Carbon::now();
+            $shift = null;
+            // Determine the shift category based on the current time
+            if ($currentTime->between('07:00', '14:59')) {
+                $shift = 'A';
+            } elseif ($currentTime->between('15:00', '22:59')) {
+                $shift = 'B';
+            } elseif ($currentTime->between('23:00', '23:59') || $currentTime->between('00:00', '06:59')) {
+                $shift = 'C';
+            }
+            try {
+            $shifts = Shift::where('category', $shift)->get();
+
+            if ($shifts->isEmpty()) {
+                return [
+                    "error" => "No shifts found for the specified category",
+                    "status" => 404
+                ];
+            }
+    
+            // Return shifts in response
+            return [
+                "payload" => $shifts,
+                "status" => 200
+            ];
+        } catch (\Exception $e) {
+            return [
+                "error" => "Internal Server Error",
+                "status" => 500
+            ];
+        }
+            
+    
+    }
 
 }
