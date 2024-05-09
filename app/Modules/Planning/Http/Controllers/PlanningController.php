@@ -84,8 +84,12 @@ class PlanningController
             $date = date('Y-m-d', strtotime($request->date));
 
             // Retrieve planning records created on the specified date
-            $planningRecord = Planning::whereDate('planned_at', $date)->where('shift_id', $request->shift_id)
-                ->where('profile_group_id', $request->profile_group_id)->first();
+            $planningRecord = Planning::whereDate('planned_at', $date)
+                ->where('shift_id', $request->shift_id)
+                ->where('profile_group_id', $request->profile_group_id)
+                ->latest('id') // Assuming 'id' is the primary key column
+                ->first();
+
 
             return [
                 "payload" => $planningRecord,

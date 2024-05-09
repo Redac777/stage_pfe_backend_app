@@ -25,6 +25,10 @@ class User extends Authenticatable
         'shift_id',
         'role_id',
         'workingHours',
+        'sby_workingHours',
+        'checker_workingHours',
+        'deckman_workingHours',
+        'assitant_workingHours',
         'profile_group_id',
     ];
     

@@ -127,7 +127,11 @@ class UserController extends Controller
             'shift_id' => 'nullable',
             'profile_group_id' => 'nullable',
             'role_id' => 'required',
-            'workingHours'=>'nullable|numeric'
+            'workingHours'=>'nullable|numeric',
+            'sby_workingHours'=>'nullable|numeric',
+            'checker_workingHours'=>'nullable|numeric',
+            'deckman_workingHours'=>'nullable|numeric',
+            'assistant_workingHours'=>'nullable|numeric',
         ];
 
         // Validate the request data
@@ -152,7 +156,12 @@ class UserController extends Controller
                 'profile_group_id' => $request->profile_group_id,
                 'role_id' => $request->role_id,
                 'workingHours' => $request->workingHours,
+                'sby_workingHours' => $request->sby_workingHours,
+                'checker_workingHours'=>$request->checker_workinghours,
+                'deckman_workingHours'=>$request->checker_workinghours,
+                'assistant_workingHours'=>$request->checker_workinghours,
                 'password' => Hash::make("123456")
+
             ]);
 
             // Generate token for the user
@@ -323,6 +332,10 @@ class UserController extends Controller
                     Rule::unique('users', 'email')->ignore($user->id), // Ignore the unique rule for the current user's email
                 ],
                 'workingHours' => 'integer',
+                'sby_workingHours'=>'integer',
+                'checker_workingHours'=>'integer',
+                'deckman_workingHours'=>'integer',
+                'assistant_workingHours'=>'integer'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
