@@ -103,4 +103,31 @@ class PlanningController
             ];
         }
     }
+
+    public function deletePlanning(Request $request){
+
+        $rules = [
+            'id' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+        $planning = Planning::find($request->id);
+        if(!$planning){
+            return [
+                "error" => "Planning not found",
+                "status" => 404
+            ];
+        }
+        $planning->delete();
+        return [
+            "payload" => $planning,
+            "message" => "Planning deleted successfully",
+            "status" => 200
+        ];
+    }
 }

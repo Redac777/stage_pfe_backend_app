@@ -68,7 +68,7 @@ class BoxController
     public function getBoxesByPlanningId(Request $request)
 {
     try{
-        $boxes = Box::with(['user', 'equipement'])->where('planning_id', $request->planning_id)->get();
+        $boxes = Box::with(['user', 'equipement','planning'])->where('planning_id', $request->planning_id)->get();
 
         return [
             "payload" => $boxes,
