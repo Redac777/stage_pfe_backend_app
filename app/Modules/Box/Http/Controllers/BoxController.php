@@ -3,6 +3,7 @@
 namespace App\Modules\Box\Http\Controllers;
 
 use App\Modules\Box\Models\Box;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,4 +84,37 @@ class BoxController
     }
     
 }
+
+public function update(Request $request)
+{
+    try {
+        $id = $request->input('id');
+        $box = Box::findOrFail($id);
+        $rules = [
+            'start_time' => 'string',
+            'ends_time' => 'string',
+            'break' => 'boolean',
+            'role' => 'string',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return [
+                "error" => $validator->errors()->first(),
+                "status" => 422
+            ];
+        }
+        $box->update($request->all());
+        return [
+            "payload" => $box,
+            "status" => 200
+        ];
+    } catch (ModelNotFoundException $e) {
+        return [
+            "error" => "Box not found",
+            "status" => 404
+        ];
+    }
+}
+
+
 }
