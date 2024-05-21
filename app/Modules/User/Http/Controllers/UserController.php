@@ -89,10 +89,11 @@ class UserController extends Controller
                 
                 // Generate token for the user
                 $token = $user->createToken('auth-token')->plainTextToken;
+                $user->load('role');
 
                 // Return token in response
                 return [
-                    'payload' => ['user' => $user, 'token' => $token],
+                    'payload' => ['user' => $user, 'token' => $token,'role'=>$user->role],
                     'status' => 200
                 ];
             }else{
