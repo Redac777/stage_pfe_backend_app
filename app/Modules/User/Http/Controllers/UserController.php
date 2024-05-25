@@ -367,7 +367,7 @@ class UserController extends Controller
         $profileGroupName = null;
         $roleName = null;
         $requestInputId = $request->input('shift_id');
-        $got = "A";
+        // $got = "A";
         try {
             if($request->has('shift_id')){
                 $shiftTwo = Shift::findOrFail($request->input('shift_id'));
