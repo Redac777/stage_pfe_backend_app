@@ -114,7 +114,9 @@ class EquipementPlanningController
             // Convert the input date to a format suitable for querying
 
             // Retrieve planning records created on the specified date
-            $userPlannings = EquipementPlanning::where('planning_id', $request->planning_id)->get();
+            $userPlannings = EquipementPlanning::where('planning_id', $request->planning_id)
+            ->with(['equipementPlanningWorkingHours','equipement'])
+            ->get();
 
             return [
                 "payload" => $userPlannings,
