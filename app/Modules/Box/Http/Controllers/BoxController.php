@@ -22,7 +22,7 @@ class BoxController
             'ends_time' => 'required|string ',
             'break' => 'nullable|boolean',
             'role' => 'nullable|string',
-            'user_id' => 'required',
+            'user_id' => 'nullable',
             'planning_id' => 'required',
             'equipement_id' => 'nullable',
         ];
@@ -94,7 +94,7 @@ public function update(Request $request)
             'start_time' => 'string',
             'ends_time' => 'string',
             'break' => 'boolean',
-            'role' => 'string',
+            'role' => 'string|nullable',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

@@ -28,7 +28,7 @@ class User extends Authenticatable
         'sby_workingHours',
         'checker_workingHours',
         'deckman_workingHours',
-        'assitant_workingHours',
+        'assistant_workingHours',
         'profile_group_id',
     ];
     
